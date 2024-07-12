@@ -1,40 +1,72 @@
 class CategoriesController < ApplicationController
   def index
     @categories = Category.all
-    render json: @categories
+    # Added to support both HTML and JSON responses
+    respond_to do |format|
+      format.html
+      format.json { render json: @categories }
+    end
   end
 
   def new
     @category = Category.new
-    render json: @category
+    # Added to support both HTML and JSON responses
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
   end
 
   def create
     @category = Category.new(category_params)
     if @category.save
-      render json: @category, status: :created
+      # Added to support both HTML and JSON responses
+      respond_to do |format|
+        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.json { render json: @category, status: :created }
+      end
     else
-      render json: @category.errors, status: :unprocessable_entity
+      # Added to support both HTML and JSON responses
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def update
     @category = Category.find(params[:id])
     if @category.update(category_params)
-      render json: @category, status: :ok
+      # Added to support both HTML and JSON responses
+      respond_to do |format|
+        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
+        format.json { render json: @category, status: :ok }
+      end
     else
-      render json: @category.errors, status: :unprocessable_entity
+      # Added to support both HTML and JSON responses
+      respond_to do |format|
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
     @category = Category.find(params[:id])
-    render json: @category, status: :ok
+    # Added to support both HTML and JSON responses
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
   end
 
   def edit
     @category = Category.find(params[:id])
-    render json: @category, status: :ok
+    # Added to support both HTML and JSON responses
+    respond_to do |format|
+      format.html
+      format.json { render json: @category }
+    end
   end
 
   private
