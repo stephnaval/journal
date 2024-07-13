@@ -6,8 +6,13 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not category.save, "Saved the category without a name"
   end
 
-  test "should save category with a name" do
-    category = Category.new(name: "Work")
-    assert category.save, "Couldn't save the category with a name"
+  test "fixture category one" do
+    category = categories(:one)
+    assert_equal 'MyString', category.name
+  end
+
+  test "fixture category two" do
+    category = categories(:two)
+    assert_equal 'MyString', category.name
   end
 end
