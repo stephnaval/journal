@@ -1,1 +1,1 @@
-json.partial! 'categories/category', category: @category
+json.extract! @category, :id, :name, :description, :created_at, :updated_at
